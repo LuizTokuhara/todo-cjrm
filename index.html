@@ -17,24 +17,25 @@
     <header class="text-center text-light my-4">
       <h1 class="mb-4">To-do List</h1>
       <form class="form-search">
-        <input class="form-control m-auto" type="text" name="search" placeholder="Buscar to-do" autofocus />
+        <input class="form-control m-auto" type="text" name="search" placeholder="Buscar to-do" autofocus
+          autocomplete="off" />
       </form>
     </header>
 
     <ul class="todos-container list-group mx-auto text-light">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
+      <li class="list-group-item d-flex justify-content-between align-items-center" data-index="1">
         <span>Assistir Breaking Bad</span>
-        <i class="far fa-trash-alt delete"></i>
+        <i class="far fa-trash-alt delete" data-index="1"></i>
       </li>
 
-      <li class="list-group-item d-flex justify-content-between align-items-center">
+      <li class="list-group-item d-flex justify-content-between align-items-center" data-index="2">
         <span>Planejar aulas</span>
-        <i class="far fa-trash-alt delete"></i>
+        <i class="far fa-trash-alt delete" data-index="2"></i>
       </li>
 
-      <li class="list-group-item d-flex justify-content-between align-items-center">
+      <li class="list-group-item d-flex justify-content-between align-items-center" data-index="3">
         <span>Fazer exercícios físicos</span>
-        <i class="far fa-trash-alt delete"></i>
+        <i class="far fa-trash-alt delete" data-index="3"></i>
       </li>
     </ul>
 

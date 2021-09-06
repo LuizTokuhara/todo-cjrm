@@ -1,46 +1,70 @@
+const form = document.querySelector("form");
 const formAddTodo = document.querySelector(".form-add-todo");
 const inputSearchTodo = document.querySelector(".form-search input");
 const todosContainer = document.querySelector(".todos-container");
 
-formAddTodo.addEventListener("submit", (event) => {
+const addTodo = (event) => {
   event.preventDefault();
 
   const inputValue = event.target.add.value.trim();
+  const todoIndex = Array.from(todosContainer.children).length + 1;
 
   if (inputValue.length) {
     todosContainer.innerHTML += `
-    <li class="list-group-item d-flex justify-content-between align-items-center">
+    <li class="list-group-item d-flex justify-content-between align-items-center" data-index="${todoIndex}">
       <span>${inputValue}</span>
-      <i class="far fa-trash-alt delete"></i>
+      <i class="far fa-trash-alt delete" data-index="${todoIndex}"></i>
     </li>
     `;
 
     event.target.reset();
   }
-});
+};
 
-todosContainer.addEventListener("click", (event) => {
+const removeTodo = (event) => {
   const clickedElement = event.target;
+  const isDeleteClicked = Array.from(clickedElement.classList).includes(
+    "delete"
+  );
 
-  if (Array.from(clickedElement.classList).includes("delete")) {
-    clickedElement.parentElement.remove();
+  if (isDeleteClicked) {
+    const clickedElementIndex = clickedElement.dataset.index;
+    const todoWithSameIndex = Array.from(todosContainer.children).filter(
+      (todo) => todo.dataset.index === clickedElementIndex
+    );
+
+    todoWithSameIndex[0].remove();
   }
-});
+};
 
-inputSearchTodo.addEventListener("input", (event) => {
+const hideTodo = (elements) => {
+  elements.forEach((todo) => {
+    todo.classList.remove("d-flex");
+    todo.classList.add("hidden");
+  });
+};
+
+const showTodo = (elements) => {
+  elements.forEach((todo) => {
+    todo.classList.remove("hidden");
+    todo.classList.add("d-flex");
+  });
+};
+
+const searchTodos = (inputValue) => {
+  const todosArray = Array.from(todosContainer.children);
+  const todoElements = todosArray.filter(
+    (todo) => !todo.textContent.toLowerCase().includes(inputValue)
+  );
+  todoElements.length !== 0 ? hideTodo(todoElements) : showTodo(todosArray);
+};
+
+const filterTodos = (event) => {
   const inputValue = event.target.value.toLowerCase().trim();
+  searchTodos(inputValue);
+};
 
-  Array.from(todosContainer.children)
-    .filter((todo) => !todo.textContent.toLowerCase().includes(inputValue))
-    .forEach((todo) => {
-      todo.classList.remove("d-flex");
-      todo.classList.add("hidden");
-    });
-
-  Array.from(todosContainer.children)
-    .filter((todo) => todo.textContent.toLowerCase().includes(inputValue))
-    .forEach((todo) => {
-      todo.classList.remove("hidden");
-      todo.classList.add("d-flex");
-    });
-});
+form.addEventListener("submit", (event) => event.preventDefault());
+formAddTodo.addEventListener("submit", addTodo);
+todosContainer.addEventListener("click", removeTodo);
+inputSearchTodo.addEventListener("input", filterTodos);
