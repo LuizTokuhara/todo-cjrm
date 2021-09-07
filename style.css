@@ -1,23 +1,48 @@
+.bg {
+  background-color: #1d3557;
+  font-weight: 300;
+}
+
 .container {
   max-width: 400px;
 }
 
+h1 {
+  font-weight: 200;
+}
+
 input[type="text"],
 input[type="text"]:focus {
-  color: #fff;
+  color: #f1faee;
   border: none;
   background: rgba(0, 0, 0, 0.2);
   max-width: 400px;
+  padding: 10px;
+  font-size: 1.3em;
+  border: 1px solid #457b9d;
 }
 
 .todos-container li {
-  background: #484e53;
+  background: #457b9d;
+  color: #f1faee;
+  font-size: 1.3em;
+  border: 1px solid #1d3557;
 }
 
 .delete {
   cursor: pointer;
+  color: #f1faee;
+}
+
+.delete:hover {
+  color: #1d3557;
 }
 
 .hidden {
   display: none;
+}
+
+.form-add-todo label {
+  font-size: 1.4em;
+  font-weight: 200;
 }
